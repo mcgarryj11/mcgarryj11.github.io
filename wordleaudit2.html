@@ -1,0 +1,73 @@
+# mcgarryj11.github.io
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Tracker - 2nd Letter A</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      max-width: 600px;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    ul {
+      margin-top: 1rem;
+    }
+    .message {
+      margin-top: 0.5rem;
+      color: red;
+    }
+    .counter {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>5-Letter Words with 2nd Letter 'A'</h2>
+  <input type="text" id="wordInput" placeholder="Enter a 5-letter word" />
+  <button onclick="addWord()">Add Word</button>
+  <div class="message" id="message"></div>
+  <div class="counter">Words added: <span id="counter">0</span></div>
+  <ul id="wordList"></ul>
+
+  <script>
+    const seenWords = new Set();
+    const wordList = document.getElementById("wordList");
+    const message = document.getElementById("message");
+    const counter = document.getElementById("counter");
+
+    function addWord() {
+      const input = document.getElementById("wordInput");
+      const word = input.value.trim().toLowerCase();
+      input.value = "";
+      message.textContent = "";
+
+      // Reject anything not 5 letters with 'a' in the second position
+      if (word.length !== 5 || word[1] !== 'a') {
+        message.textContent = "Word must be exactly 5 letters with 'a' as the second letter.";
+        return;
+      }
+
+      if (seenWords.has(word)) {
+        message.textContent = `'${word}' is a duplicate and will not be added.`;
+        return;
+      }
+
+      // Add valid, unique word
+      seenWords.add(word);
+      const li = document.createElement("li");
+      li.textContent = word;
+      wordList.appendChild(li);
+      counter.textContent = seenWords.size;
+    }
+  </script>
+</body>
+</html>
